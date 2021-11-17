@@ -1,0 +1,90 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+QUESTION - For a given a string expression containing only round brackets or parentheses, check if they are balanced or not. Brackets are said to be balanced if the bracket which opens last, closes first
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <iostream>
+#include <stack>
+#include <string.h>
+using namespace std;
+
+bool isBalanced(string exp)
+{
+    int flag = 0;
+    stack<char> s;                          //stack library is created using templates
+    for (int i = 0; i < exp.length(); i++)  //loop to traverse the string
+    {
+        if((exp[i] == ')' || exp[i] == '}' || exp[i] == ']') && s.empty() == true){ //if first bracket in the stack is a closing bracket then we place flag = 0 and break
+            flag = 0;
+            break;
+        }
+        else if (exp[i] == '(' || exp[i] == '{' || exp[i] == '[')   //if any of the opening bracket is encountered then it is pushed into the stack and loop is continued
+        {
+            s.push(exp[i]);
+            continue;
+        }
+
+        else if (exp[i] == ')') //matches if the encountered closing bracket is having corresponding opening bracket at top of stack otherwise flag = 0 and break loop
+        {
+            if (s.top() == '(')
+            {
+                flag = 1;
+                s.pop();
+            }
+            else if (s.top() != '(')
+            {
+                flag = 0;
+                break;
+            }
+        }
+        
+        else if (exp[i] == '}')//matches if the encountered closing bracket is having corresponding opening bracket at top of stack otherwise flag = 0 and break loop
+        {
+            if (s.top() == '{')
+            {
+                flag = 1;
+                s.pop();
+            }
+            else if (s.top() != '{')
+            {
+                flag = 0;
+                break;
+            }
+        }
+        
+        else if (exp[i] == ']')//matches if the encountered closing bracket is having corresponding opening bracket at top of stack otherwise flag = 0 and break loop
+        {
+            if (s.top() == '[')
+            {
+                flag = 1;
+                s.pop();
+            }
+            else if (s.top() != '[')
+            {
+                flag = 0;
+                break;
+            }
+        }
+
+
+        else
+        {
+            continue;
+        }
+    }
+
+
+    if (s.empty() == true && flag == 1) // finally it checks if all matching brackets are present and stack is empty then it returns true
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+int main()
+{
+    string input;
+    cin >> input;
+    cout << ((isBalanced(input)) ? "true" : "false");
+}
