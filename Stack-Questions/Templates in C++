@@ -1,0 +1,62 @@
+----------------------------------------------------fOLLOWING FILE CONTAINS EXTRA INFORMATION ON TEMPLATES IN C++-----------------------------------------------------------------
+
+
+//Suppose we want to use some code again and again with some minor changes so we can create a Template of it and change the datatypes again and again when needed.
+
+template < typename T , typename V>
+class Pair{
+    T x;
+    V y;
+    public:
+
+    T getX(){
+        cout<<x<<endl;
+    }
+
+    void setX(T a){
+        x = a;
+    }
+
+    V getY(){
+        cout<<y<<endl;
+    }
+
+    void setY(V a){
+        y = a;
+    }
+};
+
+//How to specify template value
+
+int main(){
+    Pair<int,double> p1; 
+    //write the template value in angular brackets;
+    
+    Pair<double , int > p2;
+    //we can create as many template variables as we want we just need to change the type name and add them in angular bracket separated by commas.
+    
+    Pair<char , char> p3;
+
+    //Suppose we want to make a triplet then we have two options either we can create a triplet class with them templates or we can use our pair class to do the same task.
+
+    Pair<Pair<int,double> , double> p4;
+    /* | x | y | z |  This triplet is created where
+    x: integer
+    y: double
+    z: double
+    
+    //Here first pair act as X of class and other is Y of class*/
+    
+    p4.setY(10.33);        //sets the value of z
+    //To set the value of first pair we need following method to operate
+    
+     Pair<int,double> p5;
+    p5.setX(11);          //setS the value of x
+    p5.setY(12.34);       //sets the value of y
+    p4.setX(p5);
+
+    p4.getY();             //gets the value of z
+    p4.getX().getX();      //gets the value of x
+    p4.getX().getY();      //gets the value of y
+
+}
